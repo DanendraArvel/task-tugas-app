@@ -1,0 +1,260 @@
+@extends('layouts.app')
+
+@section('title', 'Sign Up')
+
+@section('content')
+<style>
+    .login-box { 
+        max-width: 400px; 
+        margin: 100px auto; 
+        background: white; 
+        padding: 30px; 
+        border-radius: 10px; 
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
+    }
+    .login-box h2 { margin-bottom: 20px; text-align: center; color: #333; }
+    .form-group { margin-bottom: 15px; }
+    .form-group label { display: block; margin-bottom: 5px; color: #555; }
+    .form-group input { 
+        width: 100%; 
+        padding: 10px; 
+        border: 1px solid #ddd; 
+        border-radius: 5px; 
+        font-size: 14px; 
+    }
+    .form-group input:hover { 
+        border-color: #aaa; 
+        box-shadow: 0 0 5px rgba(0,0,0,0.1); 
+    }
+    .btn { 
+        width: 100%; 
+        padding: 12px; 
+        background: #007bff; 
+        color: white; 
+        border: none; 
+        border-radius: 5px; 
+        cursor: pointer; 
+        font-size: 16px; 
+    }
+    .btn:hover { 
+        background: #0056b3; 
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        transition: cubic-bezier(0.215, 0.610, 0.355, 1) ease-in-out;
+        -webkit-transition: cubic-bezier(0.215, 0.610, 0.355, 1) ease-in-out;
+        -moz-transition: cubic-bezier(0.215, 0.610, 0.355, 1) ease-in-out;
+        -ms-transition: cubic-bezier(0.215, 0.610, 0.355, 1) ease-in-out;
+        -o-transition: cubic-bezier(0.215, 0.610, 0.355, 1) ease-in-out;
+        transform: scale(105%);
+        -webkit-transform: scale(105%);
+        -moz-transform: scale(105%);
+        -ms-transform: scale(105%);
+        -o-transform: scale(105%);
+    }
+    .btn-link { 
+        display: block; 
+        margin-top: 20px; 
+        text-align: center; 
+        color: #6c757d; 
+        text-decoration: none; 
+    }
+    .btn-link:hover { 
+        text-decoration: underline; 
+    }
+</style>
+
+<div class="login-box">
+    <h2>Sign Up</h2>
+    <form method="POST" action="/SignUp">
+        @csrf
+        
+        <div class="form-group">
+            <label>Nama</label>
+            <input type="text" name="name" required>
+        </div>
+
+        <div class="form-group">
+            <label>Email</label>
+            <input type="email" name="email" required>
+        </div>
+
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" name="password" required>
+        </div>
+
+        <div class="form-group">
+            <label>Konfirmasi Password</label>
+            <input type="password" name="password_confirmation" required>
+        </div>
+
+        <button type="submit" class="btn">Sign Up</button>
+    </form>
+    <a class="btn-link" href="/login">Sudah punya akun?</a>
+</div>
+
+<style>
+
+    .swal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.4);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        animation: fadeIn 0.2s;
+    }
+    
+    .swal-overlay.active {
+        display: flex;
+    }
+    
+    .swal-box {
+        background: white;
+        padding: 40px;
+        border-radius: 15px;
+        max-width: 450px;
+        width: 90%;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        animation: zoomIn 0.3s;
+        text-align: center;
+    }
+    
+    .swal-icon {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto 20px;
+        border-radius: 50%;
+        background: #dc3545;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 40px;
+        color: white;
+        animation: pulse 0.5s;
+    }
+    
+    .swal-title {
+        font-size: 24px;
+        color: #333;
+        margin-bottom: 15px;
+        font-weight: bold;
+    }
+    
+    .swal-text {
+        color: #666;
+        margin-bottom: 20px;
+        line-height: 1.6;
+    }
+    
+    .swal-errors {
+        background: #f8f9fa;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        max-height: 200px;
+        overflow-y: auto;
+        text-align: left;
+    }
+    
+    .swal-errors ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .swal-errors li {
+        padding: 8px 12px;
+        margin-bottom: 8px;
+        background: white;
+        border-left: 3px solid #dc3545;
+        border-radius: 4px;
+        color: #721c24;
+    }
+    
+    .swal-button {
+        background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+        color: white;
+        padding: 12px 40px;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: bold;
+        box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
+        transition: all 0.3s;
+    }
+    
+    .swal-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(220, 53, 69, 0.4);
+    }
+    
+    @keyframes zoomIn {
+        from {
+            transform: scale(0.5);
+            opacity: 0;
+        }
+        to {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+    
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+    }
+</style>
+
+<div class="swal-overlay" id="swalError">
+    <div class="swal-box">
+        <div class="swal-icon">⚠️</div>
+        <div class="swal-title">Oops!</div>
+        <div class="swal-text">Terdapat beberapa kesalahan pada form:</div>
+        <div class="swal-errors">
+            <ul id="swalErrorList"></ul>
+        </div>
+        <button class="swal-button" onclick="closeSwal()">Mengerti</button>
+    </div>
+</div>
+
+<script>
+function showSwal(errors) {
+    const swal = document.getElementById('swalError');
+    const errorList = document.getElementById('swalErrorList');
+    
+    errorList.innerHTML = '';
+    errors.forEach(error => {
+        const li = document.createElement('li');
+        li.textContent = error;
+        errorList.appendChild(li);
+    });
+    
+    swal.classList.add('active');
+}
+
+function closeSwal() {
+    document.getElementById('swalError').classList.remove('active');
+}
+
+document.getElementById('swalError').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeSwal();
+    }
+});
+
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeSwal();
+    }
+});
+
+@if ($errors->any())
+    showSwal(@json($errors->all()));
+@endif
+</script>
+@endsection
