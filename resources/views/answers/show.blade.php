@@ -37,7 +37,7 @@
     .btn-third:hover { 
         background: #0056b3; 
     }
-    .btn-warning { background: #ffc107; color: #333; }
+    .btn-warning { background: #ffc107; color: #333; font-size: 12px; padding: 5px 10px; text-decoration: none; }
     .btn-warning:hover { 
         background: #e0a800; 
     }
@@ -78,7 +78,8 @@
 
     <div class="detail-row">
         <div class="detail-label">File:</div>
-        <div class="detail-value">{{ $answer->attachment }}</div>
+        <div class="detail-value">{{ $answer->attachmentAnswer }}
+        <a href="/download-answer-attachment/{{ $answer->attachmentAnswer }}" class="btn-warning">Download</a>        </div>
     </div>
     
     <div class="detail-row">

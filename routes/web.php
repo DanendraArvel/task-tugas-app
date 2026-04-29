@@ -13,6 +13,10 @@ Route::get('/download-attachment/{filename}', [TaskController::class, 'showAttac
     ->middleware('auth')
     ->name('download.show');
 
+Route::get('/download-answer-attachment/{filename}', [TaskController::class, 'showAnswerAttachment'])
+    ->middleware('auth')
+    ->name('download.answer.show');
+
 Route::get('/', function () {
     return redirect('/login');
 });
@@ -46,4 +50,5 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/tasks/{id}', [TaskController::class, 'destroy'])->name('tasks.destroy');
 
     Route::get('/tasks/{id}/listAnswer', [AnswerController::class, 'listAnswer'])->name('tasks.listAnswer');
+    Route::get('/tasks/{id}/listAnswer/attachmentAnswer', [AnswerController::class, 'attachmentAnswer'])->name('tasks.attachmentAnswer');
 });

@@ -108,8 +108,8 @@
         
         <div class="form-group">
             <label>File *</label>
-            <input type="file" name="attachment" value="{{ old('attachment') }}" >
-            @error('attachment')
+            <input type="file" name="attachmentAnswer" value="{{ old('attachmentAnswer') }}" >
+            @error('attachmentAnswer')
                 <div class="error">{{ $message }}</div>
             @enderror
         </div>

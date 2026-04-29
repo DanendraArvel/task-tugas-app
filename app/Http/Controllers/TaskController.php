@@ -97,18 +97,7 @@ class TaskController extends Controller
 
     public function showAttachment($filename)
     {   
-        $user = Auth::user();
-
-        if (!$user) {
-            return "gagal";
-        }
-
-        $allowedTokens = ['admin', 'siswa'];
-
-        if (!in_array($user->token, $allowedTokens)) {
-            abort(403, 'Akses ditolak: Anda tidak memiliki izin.');
-        }
-
+        $this->authorizeDownload();
         $path = storage_path('app/private/' . $filename);
 
         if (!file_exists($path)) {
@@ -116,6 +105,26 @@ class TaskController extends Controller
         }  
 
         return response()->file($path);
+    }
+
+    public function showAnswerAttachment($filename)
+    {   
+        $this->authorizeDownload();
+        $path = storage_path('app/private/answer/' . $filename);
+
+        if (!file_exists($path)) {
+            abort(404, 'File not found');
+        }  
+
+        return response()->file($path);
+    }
+
+    private function authorizeDownload()
+    {
+        $user = Auth::user();
+        if ($user->token !== 'admin' && $user->token !== 'siswa' && $user->token !== 'guru') {
+            abort(403, 'Unauthorized');
+        }
     }
 
     public function answer($id)

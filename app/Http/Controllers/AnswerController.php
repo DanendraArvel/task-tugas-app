@@ -25,18 +25,18 @@ class AnswerController extends Controller
             'status' => 'nullable',
             'nama_tugas' => 'required',
             'pesan' => 'required',
-            'attachment-answer' => 'nullable|file|mimes:pdf,doc,docx,jpg,png,jpeg,xls,xlsx,ppt,pptx',
+            'attachmentAnswer' => 'nullable|file|mimes:pdf,doc,docx,jpg,png,jpeg,xls,xlsx,ppt,pptx',
             'status' => 'nullable',
         ]);
 
         $data = $request->all();
         $data['task_id'] = $id;
 
-        if ($request->hasFile('attachment-answer')) {
-            $file = $request->file('attachment-answer');
+        if ($request->hasFile('attachmentAnswer')) {
+            $file = $request->file('attachmentAnswer');
             $filename = time() . '.' . $file->getClientOriginalExtension();
             $file->move(storage_path('app/private/answer'), $filename);
-            $data['attachment-answer'] = $filename;
+            $data['attachmentAnswer'] = $filename;
         }
 
         Answer::create($data);
@@ -81,5 +81,11 @@ class AnswerController extends Controller
             ->firstOrFail();
 
         return view('answers.show', compact('answer'));
+    }
+
+    public function attachmentAnswer($filename)
+    {
+        $path = storage_path('app/private/answer/' . $filename);
+        return response()->file($path);
     }
 }

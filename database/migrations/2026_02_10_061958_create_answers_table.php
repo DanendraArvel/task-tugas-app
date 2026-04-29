@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('status')->nullable();
             $table->string('nama_tugas');
             $table->text('pesan');
-            $table->string('attachment-answer')->nullable();
+            $table->string('attachmentAnswer')->nullable();
             $table->foreignId('task_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });

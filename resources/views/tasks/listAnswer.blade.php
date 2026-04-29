@@ -257,13 +257,11 @@
             <td>{{ $answer->nama_tugas }}</td>
             <td>{{ $answer->pesan }}</td>
             <td>
-                @if($answer->attachment)
-                <a href="/download-attachment/{{ $task->attachment }}" target="_blank" class="btn-info">Download</a>
-                @else
-                -
+                @if ($answer->attachmentAnswer)
+                    <a href="/download-answer-attachment/{{ $answer->attachmentAnswer }}" class="btn-warning">Download</a>
                 @endif
-            <td>{{ $answer->status }}</td>
             </td>
+            <td>{{ $answer->status }}</td>
             <td>
                 <div class="actions">
                     <a href="/answers/{{ $answer->id }}/show" class="btn-info">Detail</a>

@@ -16,7 +16,7 @@ class Answer extends Model
         'email',
         'nama_tugas',
         'pesan',
-        'attachment-answer',
+        'attachmentAnswer',
     ];
     
 }
