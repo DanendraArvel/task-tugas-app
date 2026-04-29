@@ -1,0 +1,29 @@
+name: 🚀 Deploy Laravel ke InfinityFree
+
+on:
+  push:
+    branches:
+      - main  # Pastikan ini nama branch kamu (main atau master)
+
+jobs:
+  web-deploy:
+    name: 🎉 Deploying...
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚚 Ambil Kode Terbaru
+        uses: actions/checkout@v4
+
+      - name: 📂 Upload via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{secrets.FTP_SERVER}}
+          username: ${{secrets.FTP_USERNAME}}
+          password: ${{secrets.FTP_PASSWORD}}
+          # Jika ingin ke folder tugasid, sesuaikan path ini:
+          server-dir: ./tugasid.ct.ws/htdocs/ 
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            **/tests/**
+            .env
