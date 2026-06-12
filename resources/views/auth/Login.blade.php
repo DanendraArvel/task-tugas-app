@@ -78,7 +78,7 @@
         </div>
 
         <button type="submit" class="btn">Login</button>
-        <p>Contact <a href="https://mail.google.com/mail/?view=cm&fs=1&to=danendraarvelfw@gmail.com&su=Request%Admin%20Testing%20Account" target="_blank" class="email-link">danendraarvelfw@gmail.com</a> for admin testing account</p>
+        <p>Contact <a href="https://mail.google.com/mail/?view=cm&fs=1&to=danendraarvelfw@gmail.com&su=Request%20Admin%20Testing%20Account" target="_blank" class="email-link">danendraarvelfw@gmail.com</a> for admin testing account</p>
     </form>
     <a class="btn-signup" href="/SignUp">Belum punya akun?</a>
 </div>
