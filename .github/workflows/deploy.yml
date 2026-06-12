@@ -19,7 +19,8 @@ jobs:
           server: ${{secrets.FTP_SERVER}}
           username: ${{secrets.FTP_USERNAME}}
           password: ${{secrets.FTP_PASSWORD}}
-          server-dir: ./tugasid.site.je/htdocs 
+          local-dir: ./
+          server-dir: /tugasid.site.je/htdocs/ 
           exclude: |
             **/.git*
             **/.git*/**
